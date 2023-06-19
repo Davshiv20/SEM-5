@@ -1,0 +1,55 @@
+Select Manager_doj, First_Name from Employee natural join Deptt  where (months_between(sysdate, Manager_doj) /12)>14;
+
+select d.dept_name, count(e.first_name) from deptt d where count(e.first_name)>2
+join employee e ON d.dept_no=e.dept_no
+group by d.dept_name;
+
+select dept_name 
+from(deptt join employee) 
+where count(employee.first_name)>2;
+
+Select First_Name, Dept_name,Dept_No, Salary from (Employee natural join Deptt) where Salary in(Select min(Salary) from Employee group by Dept_No);
+
+Select First_Name, Dept_Name, Dept_No, Salary from (Employee natural join Deptt) where Salary > (Select avg(Salary) from Employee where Dept_No = 2);
+
+Select Dept_Name, Dept_No, count(*) from (Employee natural join Deptt)  group by Dept_No, Dept_Name;
+
+Select  Dept_name, Dept_No from Deptt  where Dept_No in (Select Dept_No from Employee group by Dept_No having count(*) in (select max(Employees) from (Select count(*) Employees from Employee group by Dept_no)));
+
+Select Dept_name, avg(Salary) from (Employee natural join Deptt) group by Dept_Name, Dept_No;
+
+Create view Administration_Emp as Select * from Employee where Dept_No = (Select Dept_No from Deptt where Dept_Name = 'Administration');
+Select * from Administration_Emp;
+
+CREATE VIEW Administration_empdeets AS
+SELECT e.*
+FROM employee e
+JOIN deptt d ON e.dept_no = d.dept_no
+WHERE d.department_name = 'Administration';
+
+CREATE VIEW Administration_empdeets AS
+SELECT e.*
+FROM employee e
+JOIN deptt d ON e.dept_no = d.dept_no
+WHERE d.dept_name = 'Administration';
+
+
+Create view Emp_Finance as Select * from Employee where Dept_no in (Select Dept_No from Deptt where Dept_Name = 'Finance' or Dept_Name = 'Administration'); 
+
+Create view Salary_of_Jennifer as Select * from Employee where Salary > (Select Salary from Employee where First_Name = 'Jennifer');
+select * from SalaryJenifer;
+
+Create view First_Desc_Name as select * from Employee order by First_Name desc;
+
+Create view Salary_Lowerthan_Dep1 as select * from Employee where Salary < (Select min(Salary) from Employee where Dept_No = 1);
+
+
+Select * from (Employee natural join Deptt) where Dept_Name = 'Headquater';
+
+Select Dept_Name, First_Name, SSN_Number from (Deptt natural join Employee) where Employee.SSN_Number = Deptt.ManagerSSN;
+
+Select Dept_Name, Dept_No from Deptt where Dept_No in (Select Dept_No from Employee having count(*) > 2 group by Dept_No);
+
+Select First_Name, SSN_Number, Dept_Name, Dept_No from (Employee natural join Deptt) where Dept_No = 1;
+
+Select First_Name, Dept_Name, ManagerSSN from (Employee natural join Deptt);

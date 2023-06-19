@@ -1,0 +1,11 @@
+# include <iostream>
+using namespace std
+int main()
+{
+ int a ;
+ string s1 ;
+ printf("a is an interger variable ") ;
+ cout<<"s1 is a string variable"<<endl ;
+ // This is a commented line and My registration Number is 21bcb0107 .
+Various operators in cpp are + , - and =
+}
